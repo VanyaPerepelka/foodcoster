@@ -1,16 +1,24 @@
-# This is a sample Python script.
+import time
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+import data_handlers as dh
+from csv_parsing import csv_parser
+import utils
+import config
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+final_costs = dh.costs
+raw_stats = dh.scraped_result
+final_stats = dh.cleaned_stats
+final_report_dict = dh.final_map
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+final_report_csv = csv_parser.to_csv(final_report_dict, f"final_report_{config.days_ago}.csv")
+
+end = time.time()
+
+print(f'EXEC TIME: [{end - utils.start}] SECONDS')
+# UNCOMMENT FOR FORMING FULL CSV REPORT BY SCRAPER AND DATA HANDLER #
+
+# raw_stats_csv = csv_parser.to_csv(final_stats, "cleaned_items.csv")
+# clean_stats_csv = csv_parser.to_csv(raw_stats, "raw_items.csv")
+#
+# costs_csv = csv_parser.to_csv(final_costs, "costs.csv")
